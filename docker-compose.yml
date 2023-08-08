@@ -1,0 +1,39 @@
+
+x-client: &test_client
+  image: ubuntu
+  command: ["tail", "-f", "/dev/null"]
+  
+services:
+  wemulate:
+    image: wemulate-container
+    build:
+      context: .
+    # command: ["tail", "-f", "/dev/null"]
+    tty: true
+    ports:
+      - 8080:80
+    environment:
+      MGMT_INTERFACE: 'eth0'
+    networks:
+      - dummy
+      - minion1
+      - minion2
+    privileged: true
+
+  minion1:
+    <<: *test_client
+    hostname: minion1
+    networks: 
+      - minion1
+
+  minion2:
+    <<: *test_client
+    hostname: minion2
+    networks: 
+      - minion2
+
+networks:
+  dummy:
+  minion1:
+  minion2:
+
