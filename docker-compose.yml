@@ -18,7 +18,8 @@ services:
       - dummy
       - minion1
       - minion2
-    privileged: true
+    cap_add:
+      - "NET_ADMIN"
 
   minion1:
     <<: *test_client
