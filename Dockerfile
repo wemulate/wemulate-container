@@ -19,7 +19,8 @@ ENTRYPOINT ["/init"]
 RUN pip3 install wemulate wemulate-api && \
     wget -O /var/www/html/release.zip https://github.com/wemulate/wemulate-frontend/releases/latest/download/release.zip && \
     unzip -o -q /var/www/html/release.zip -d /var/www/html/ && \
-    rm -f /var/www/html/release.zip
+    rm -f /var/www/html/release.zip && \
+    wemulate --install-completion bash
 
 # see all original env vars in all processes
 ENV S6_KEEP_ENV=1
